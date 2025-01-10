@@ -25,5 +25,21 @@ public class CompanyInvoiceController {
         CompanyInvoice createdInvoice = companyInvoiceService.createInvoice(companyInvoice);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdInvoice);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<CompanyInvoice> getInvoiceById(@PathVariable Long id) {
+        CompanyInvoice companyInvoice = companyInvoiceService.getInvoiceById(id);
+
+        if (companyInvoice != null) {
+            return new ResponseEntity<>(companyInvoice, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteInvoice(@PathVariable Long id) {
+        companyInvoiceService.deleteInvoice(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
 

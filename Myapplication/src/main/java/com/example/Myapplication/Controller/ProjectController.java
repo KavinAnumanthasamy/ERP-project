@@ -25,4 +25,22 @@ public class ProjectController {
         Project createdProject = projectService.createProject(project);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProject);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Project> getProjectById(@PathVariable Long id) {
+
+        Project project = projectService.getProjectById(id);
+
+        if (project != null) {
+            return new ResponseEntity<>(project, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Project not found
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
+        projectService.deleteProject(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
